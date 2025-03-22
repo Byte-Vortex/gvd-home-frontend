@@ -1,0 +1,226 @@
+// "use client"
+
+// import React from "react";
+// import * as MenubarPrimitive from "@radix-ui/react-menubar";
+// import { cn } from "@/lib/utils";
+// import { BsChevronDown as ArrowIcon } from "react-icons/bs";
+
+// const MenubarMenu = MenubarPrimitive.Menu;
+// const MenubarGroup = MenubarPrimitive.Group;
+// const MenubarPortal = MenubarPrimitive.Portal;
+// const MenubarSub = MenubarPrimitive.Sub;
+
+// const Menubar = React.forwardRef(({ className, ...props }, ref) => (
+//     <MenubarPrimitive.Root
+//         ref={ref}
+//         className={cn(
+//             className
+//         )}
+//         {...props}
+//     />
+// ));
+// Menubar.displayName = MenubarPrimitive.Root.displayName;
+
+// const MenubarTrigger = React.forwardRef(({ className, children, isActive, ...props }, ref) => (
+//     <MenubarPrimitive.Trigger
+//         ref={ref}
+//         className={cn(
+//             "flex cursor-default select-none items-center text-sm hover:text-primary outline-none group focus:text-primary data-[state=open]:text-primary rounded-full duration-150", isActive && "text-primary",
+//             className
+//         )}
+//         {...props}
+//     >
+//         <div className="flex gap-1.5 items-center">
+
+//             {children}
+//             <ArrowIcon className="mt-1 group-data-[state=open]:rotate-180 duration-150" />
+
+//         </div>
+//     </MenubarPrimitive.Trigger>
+// ));
+// MenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName;
+
+
+// const MenubarContent = React.forwardRef(
+//     (
+//         { className, align = "center", alignOffset = -4, sideOffset = 8, ...props },
+//         ref
+//     ) => (
+//         <MenubarPrimitive.Portal>
+//             <MenubarPrimitive.Content
+//                 hideWhenDetached
+//                 ref={ref}
+//                 align={align}
+//                 alignOffset={alignOffset}
+//                 sideOffset={sideOffset}
+//                 className={cn(
+//                     "z-50 min-w-[12rem] overflow-hidden shadow-md border border-outline/20 py-2 px-2 rounded-2xl data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+//                     className
+//                 )}
+//                 {...props}
+//             />
+//         </MenubarPrimitive.Portal>
+//     )
+// );
+// MenubarContent.displayName = MenubarPrimitive.Content.displayName;
+
+// const MenubarItem = React.forwardRef(({ className, inset, isActive, ...props }, ref) => (
+//     <MenubarPrimitive.Item
+//         asChild
+//         ref={ref}
+//         className={cn(
+//             "relative flex cursor-default select-none items-center rounded-xl w-full py-1.5 px-4 text-sm outline-none focus:bg-primary focus:text-on-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+//             inset && "pl-8", isActive && "bg-primary text-on-primary",
+//             className
+//         )}
+//         {...props}
+//     />
+// ));
+// MenubarItem.displayName = MenubarPrimitive.Item.displayName;
+
+
+// const MenubarSeparator = React.forwardRef(({ className, ...props }, ref) => (
+//     <MenubarPrimitive.Separator
+//         ref={ref}
+//         className={cn("-mx-1 my-1 h-px bg-gray-100", className)}
+//         {...props}
+//     />
+// ));
+// MenubarSeparator.displayName = MenubarPrimitive.Separator.displayName;
+
+
+// export {
+//     Menubar,
+//     MenubarMenu,
+//     MenubarTrigger,
+//     MenubarContent,
+//     MenubarItem,
+//     MenubarSeparator,
+//     MenubarPortal,
+//     MenubarGroup,
+//     MenubarSub,
+// };
+"use client";
+
+import React, { useState, useRef } from "react";
+import * as MenubarPrimitive from "@radix-ui/react-menubar";
+import { cn } from "@/lib/utils";
+import { BsChevronDown as ArrowIcon } from "react-icons/bs";
+
+const MenubarMenu = ({ children, ...props }) => {
+    const [open, setOpen] = useState(false);
+    const menuRef = useRef(null);
+    const closeTimeout = useRef(null);
+
+    const handleMouseEnter = () => {
+        if (closeTimeout.current) {
+            clearTimeout(closeTimeout.current);
+        }
+        setOpen(true);
+    };
+
+    const handleMouseLeave = () => {
+        closeTimeout.current = setTimeout(() => {
+            setOpen(false);
+        }, 100); // Small delay to allow smooth transition
+    };
+
+    return (
+        <MenubarPrimitive.Menu {...props} open={open} onOpenChange={setOpen}>
+            {React.Children.map(children, (child) =>
+                React.cloneElement(child, { open, setOpen, menuRef, handleMouseEnter, handleMouseLeave })
+            )}
+        </MenubarPrimitive.Menu>
+    );
+};
+
+const Menubar = React.forwardRef(({ className, ...props }, ref) => (
+    <MenubarPrimitive.Root ref={ref} className={cn(className)} {...props} />
+));
+Menubar.displayName = MenubarPrimitive.Root.displayName;
+
+const MenubarTrigger = React.forwardRef(
+    ({ className, children, open, setOpen, menuRef, handleMouseEnter, handleMouseLeave, isActive, ...props }, ref) => {
+        return (
+            <MenubarPrimitive.Trigger
+                ref={ref}
+                className={cn(
+                    "flex cursor-default select-none items-center text-sm hover:text-primary outline-none group focus:text-primary data-[state=open]:text-primary rounded-full duration-150",
+                    isActive && "text-primary",
+                    className
+                )}
+                {...props}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
+                <div className="flex gap-1.5 items-center">
+                    {children}
+                    <ArrowIcon className={open ? "mt-1 rotate-180 duration-300" : " duration-300"} />
+                </div>
+            </MenubarPrimitive.Trigger>
+        );
+    }
+);
+MenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName;
+
+const MenubarContent = React.forwardRef(
+    (
+        { className, align = "center", alignOffset = 0, sideOffset = 8, open, setOpen, menuRef, handleMouseEnter, handleMouseLeave, ...props },
+        ref
+    ) => (
+        <MenubarPrimitive.Portal>
+            <MenubarPrimitive.Content
+                ref={(node) => {
+                    if (ref) {
+                        if (typeof ref === "function") ref(node);
+                        else ref.current = node;
+                    }
+                    menuRef.current = node;
+                }}
+                align={align}
+                alignOffset={alignOffset}
+                sideOffset={sideOffset}
+                onMouseEnter={handleMouseEnter} 
+                onMouseLeave={handleMouseLeave} 
+                className={cn(
+                    "z-50 min-w-[12rem] overflow-hidden shadow-md border border-outline/20 py-2 px-2 rounded-2xl data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+                    className
+                )}
+                {...props}
+            />
+        </MenubarPrimitive.Portal>
+    )
+);
+MenubarContent.displayName = MenubarPrimitive.Content.displayName;
+
+const MenubarItem = React.forwardRef(({ className, inset, isActive, ...props }, ref) => (
+    <MenubarPrimitive.Item
+        asChild
+        ref={ref}
+        className={cn(
+            "relative flex select-none items-center rounded-xl w-full py-1.5 px-4 text-sm outline-none focus:bg-primary focus:text-on-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+            inset && "pl-8", isActive && "bg-primary text-on-primary",
+            className
+        )}
+        {...props}
+    />
+));
+MenubarItem.displayName = MenubarPrimitive.Item.displayName;
+
+const MenubarSeparator = React.forwardRef(({ className, ...props }, ref) => (
+    <MenubarPrimitive.Separator
+        ref={ref}
+        className={cn("-mx-1 my-1 h-px bg-gray-100", className)}
+        {...props}
+    />
+));
+MenubarSeparator.displayName = MenubarPrimitive.Separator.displayName;
+
+export {
+    Menubar,
+    MenubarMenu,
+    MenubarTrigger,
+    MenubarContent,
+    MenubarItem,
+    MenubarSeparator,
+};

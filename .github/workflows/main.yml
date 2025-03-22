@@ -1,0 +1,48 @@
+name: Deploy Next.js to Ubuntu Server
+
+on:
+  push:
+    branches:
+      - next # Change this to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.17.0" # Adjust this to match your Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Copy Files to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "./*"
+          target: ${{ secrets.NEXT_HOME_SERVER_PATH }}
+          debug: true
+          
+      - name: Restart PM2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            export PATH=$PATH:/root/.nvm/versions/node/v18.17.0/bin  # Adjust this path as necessary
+            cd ${{ secrets.NEXT_HOME_SERVER_PATH }}
+            pm2 restart ${{ secrets.PM2_PROCESS }}
