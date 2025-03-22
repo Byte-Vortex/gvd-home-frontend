@@ -30,7 +30,7 @@ export default async function Page() {
                     desktopImage: data.desktopimage
                 }}
             />
-            <div className="px-4 py-24 space-y-24 max-w-7xl mx-auto w-full">
+            <div className="px-4 py-24 space-y-24 max-w-[100vw] lg:px-32 mx-auto w-full">
                 <AboutSection data={data.about_service} />
                 <LazyForm
                     basicDetails={basicDetails}

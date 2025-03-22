@@ -34,7 +34,7 @@ export default async function Home() {
     <div>
       <DynamicScripts pathname={"global"} scripts={scripts} />
       <HeroSection data={data.heroSection} />
-      <div className="max-w-[100vw] px-32">
+      <div className="max-w-[100vw] lg:px-32 px-4">
       <BeforeDonateSection data={data} />
       <DonateSection data={data.donateSection} />
       <AfterDonateSection data={data} />

@@ -15,7 +15,7 @@ export default async function Page() {
         <div>
             <HeroSection data={data.heroSection} />
 
-            <div className="max-w-7xl mx-auto px-4 py-16 space-y-20">
+            <div className="max-w-[100vw] lg:px-32 mx-auto px-4 py-16 space-y-20">
                 <div className="">
                     <h1>{data.aboutSection.title}</h1>
 

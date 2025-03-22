@@ -16,7 +16,7 @@ export default async function Career() {
 
     return (
 
-        <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 py-12">
             <h1>Career Openings</h1>
 
             <ProseInnerHtmlContainer className="mb-12 mt-2" html={"Explore Exciting Opportunities with Gupt Vrindavan Dham! We believe in fostering a diverse and dynamic workforce. Join us on our mission to promote Vedic culture and spiritual learning. Discover fulfilling career paths across different trusts and locations. Your journey towards meaningful work begins here. Check out our current job vacancies and take the first step towards a rewarding career with Gupt Vrindavan Dham."} />

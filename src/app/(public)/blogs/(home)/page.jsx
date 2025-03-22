@@ -13,7 +13,7 @@ export default async function Page() {
   ]);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 py-16 space-y-24">
+    <div className="max-w-[100vw] lg:px-32 mx-auto p-4 py-16 space-y-24">
       <DynamicScripts pathname={"/blogs/"} scripts={scripts} />
       <HeroSection data={data.banners} />
       <CategoriesSection data={data.important_categories} />

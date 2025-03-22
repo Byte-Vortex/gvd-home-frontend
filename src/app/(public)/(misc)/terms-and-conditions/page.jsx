@@ -7,7 +7,7 @@ import { makeRequestServer } from "@/lib/fetch"
 export default async function Page() {
     const [data, scripts] = await Promise.all([makeRequestServer("/terms_condition/"), getScriptTags("/terms_condition/")]);
     return (
-        <div className="max-w-7xl mx-auto px-4 space-y-12 py-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 space-y-12 py-12">
             <DynamicScripts pathname={"/privacy-policy/"} scripts={scripts} />
             <ProseInnerHtmlContainer html={data.text} />
         </div>

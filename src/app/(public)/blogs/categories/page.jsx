@@ -11,7 +11,7 @@ export default async function Page() {
     const [data, scripts] = await Promise.all([makeRequestServer("/blogs/category/"), getScriptTags("/blogs/categories/")]);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 space-y-12 py-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 space-y-12 py-12">
             <DynamicScripts pathname={"/blogs/categories/"} scripts={scripts} />
             <h1>All Categories</h1>
             <ProseInnerHtmlContainer html={"<p>The 'All Categories' page of a blog serves as a comprehensive hub for navigating the site's diverse content. Here, readers can easily explore various topics, from lifestyle and travel to technology and wellness. Each category is neatly organized, allowing visitors to quickly find articles that interest them. This page enhances user experience by providing a clear overview of the blog's offerings, making it simple to discover new insights and engaging stories.</p>"} />

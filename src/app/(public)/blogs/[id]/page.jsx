@@ -50,7 +50,7 @@ export default async function Page({ params }) {
   }
 
   return (
-    <div className="grid grid-cols-4 px-4 py-12 gap-8 max-w-7xl mx-auto">
+    <div className="grid grid-cols-4 px-4 py-12 gap-8 max-w-[100vw] lg:px-32 mx-auto">
       <DynamicScripts pathname={"/blogs/" + id + "/"} scripts={scripts} />
       <div className="space-y-6 col-span-full lg:col-span-3 w-full">
         <div>

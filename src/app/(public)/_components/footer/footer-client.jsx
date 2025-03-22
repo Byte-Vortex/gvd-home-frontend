@@ -41,7 +41,7 @@ export function FooterClient({ basicDetails }) {
 
   return (
     <footer className="font-medium gap-5 w-full min-h-72">
-      <div className="flex gap-2 justify-evenly flex-wrap max-w-[100vw] mx-auto px-24 mt-12">
+      <div className="flex gap-2 justify-evenly flex-wrap max-w-[100vw] mx-auto px-4 lg:px-24 mt-12">
         {/* section one */}
 
         <div className="flex flex-col gap-2  my-8 lg:my-0 sm:flex-row lg:flex-col">

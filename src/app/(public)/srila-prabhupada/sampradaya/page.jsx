@@ -10,7 +10,7 @@ import { Table, TableBody, TableRow, TableCell } from "@/components/ui/table";
 export default async function Page() {
     const data = await makeRequestServer("/sampradaya/");
     return (
-        <div className="max-w-7xl mx-auto px-4 space-y-12 py-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 space-y-12 py-12">
             <h1>{data.title}</h1>
 
             <VideoImageSliderTab videoId={data.video} images={data.images} />

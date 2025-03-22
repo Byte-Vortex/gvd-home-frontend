@@ -14,7 +14,7 @@ export async function Header() {
   const basicDetails = await getBasicDetails();
   return (
     <header className="w-full h-12 top-0 left-0 flex items-center justify-center bg-primary text-on-primary">
-      <div className="max-w-[100vw] w-full flex justify-between items-center mx-auto px-24">
+      <div className="max-w-[100vw] w-full flex justify-between items-center mx-auto px-4 lg:px-24">
         <div className="flex w-full text-xs md:text-base md:w-max flex-wrap items-center justify-between gap-3">
           <Button
             asChild

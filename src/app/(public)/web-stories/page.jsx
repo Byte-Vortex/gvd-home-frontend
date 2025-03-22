@@ -9,7 +9,7 @@ export default async function Page() {
 
     return (
 
-        <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 py-12">
             <DynamicScripts pathname={"/web-stories/"} scripts={scripts} />
             <h1 className="mb-12">{"Web Stories"}</h1>
 

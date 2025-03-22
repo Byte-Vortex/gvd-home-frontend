@@ -9,7 +9,7 @@ export default async function Page() {
     const data = (await makeRequestServer("/eventservices/events/"));
     data.events?.sort((a,b)=> new Date(a.date)- new Date(b.date))
     return (
-        <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 py-12">
             <h1>{data.title}</h1>
             <ProseInnerHtmlContainer html={data.text} className="mb-12 mt-2" />
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">

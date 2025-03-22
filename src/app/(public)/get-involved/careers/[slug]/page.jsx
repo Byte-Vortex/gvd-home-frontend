@@ -38,7 +38,7 @@ export default async function Page({params}) {
 
     return (
 
-        <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 py-12 space-y-12">
             <h1>{data.jobTitle}</h1>
 
             <div className="p-6 bg-surface text-on-surface rounded-xl grid min-[450px]:grid-cols-2 md:grid-cols-3 gap-4">

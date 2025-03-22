@@ -26,7 +26,7 @@ export default async function Page({ params }) {
         return notFound();
     }
     return (
-        <div className="max-w-7xl mx-auto px-4 py-12 grid lg:grid-cols-10 gap-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 py-12 grid lg:grid-cols-10 gap-12">
             <DynamicScripts pathname={"/blogs/categories/" + id + "/"} scripts={scripts} />
             <div className="lg:col-span-3">
                 <div className="size-32 relative">

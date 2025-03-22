@@ -18,7 +18,7 @@ export default async function Page() {
 
     return (
 
-        <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="max-w-[100vw] lg:px-32 mx-auto px-4 py-12">
             <h1>{data.title}</h1>
 
             <ProseInnerHtmlContainer className="mt-2" html={data.text} />

@@ -14,7 +14,7 @@ export default async function Page() {
     return (
 
         <div className='py-12 space-y-24'>
-            <div className="max-w-7xl mx-auto px-4 space-y-6">
+            <div className="max-w-[100vw] lg:px-32 mx-auto px-4 space-y-6">
                 <h1>{data.title}</h1>
 
                 <ProseInnerHtmlContainer className="" html={data.text} />

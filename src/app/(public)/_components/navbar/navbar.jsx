@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <>
       <div className="flex sticky top-0 left-0  h-14 text-sm z-50 shadow-md bg-surface text-on-surface px-2 max-w-full items-center justify-center">
-        <div className="max-w-[100vw] flex w-full items-center justify-between h-full mx-auto font-medium px-24">
+        <div className="max-w-[100vw] flex w-full items-center justify-between h-full mx-auto font-medium px-4 lg:px-24">
           <Link href="/" className="">
             <Image
               loadingAnimation={false}

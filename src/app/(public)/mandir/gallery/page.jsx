@@ -14,7 +14,7 @@ export default async function Gallery() {
     return (
 
         <div className="space-y-12 py-12">
-            <div className="max-w-7xl mx-auto px-4 space-y-12">
+            <div className="max-w-[100vw] lg:px-32 mx-auto px-4 space-y-12">
                 <h1>{"Gallery"}</h1>
 
                 <ProseInnerHtmlContainer
@@ -30,7 +30,7 @@ export default async function Gallery() {
             />
 
 
-            <div className='max-w-7xl mx-auto space-y-12 p-4'>
+            <div className='max-w-[100vw] lg:px-32 mx-auto space-y-12 p-4'>
 
                 {
                     data.sections.map((data, index) => (
