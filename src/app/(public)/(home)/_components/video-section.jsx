@@ -26,7 +26,7 @@ export function VideoSection({ data }) {
 
     const selectedCard = cardsMap.get(selected);
     return (
-        <div>
+        <div className="w-full">
 
             <h3 className="text-3xl md:text-4xl font-bold">{data.title}</h3>
             <ProseInnerHtmlContainer html={data.text} />

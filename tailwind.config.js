@@ -34,6 +34,9 @@ export default {
       backgroundImage: {
         'donate-section-pattern': "url('./(public)/(home)/_components/_images/donate-background.svg')",
       },
+      spacing: {
+        'custom': '7.3vw', // Define your custom padding
+      },
       fontFamily: {
         Heading: ["var(--font-heading)", "sans-serif"],
         Normal: ['var(--font-normal)', "sans-serif"],

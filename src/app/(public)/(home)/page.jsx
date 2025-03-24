@@ -32,9 +32,9 @@ export default async function Home() {
   const data = res.data;
   return (
     <div>
-      <DynamicScripts pathname={"global"} scripts={scripts} />
+      {/* <DynamicScripts pathname={"global"} scripts={scripts} /> */}
       <HeroSection data={data.heroSection} />
-      <div className="max-w-[100vw] lg:px-32 px-4">
+      <div className="max-w-[100vw] lg:px-[7.09vw] px-4">
       <BeforeDonateSection data={data} />
       <DonateSection data={data.donateSection} />
       <AfterDonateSection data={data} />
