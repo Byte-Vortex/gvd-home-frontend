@@ -97,8 +97,8 @@ export default function RootLayout({ children }) {
         <body className="bg-background text-on-background font-Normal selection:text-background selection:bg-on-background/80 text-base">
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="light"
+            enableSystem="false"
             disableTransitionOnChange
           >
             <PhotoProvider>

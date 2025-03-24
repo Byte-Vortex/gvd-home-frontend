@@ -12,9 +12,9 @@ import { useState } from "react"
 export function DonateSection({ data }) {
   const [sliderMoved, setSliderMoved] = useState(false)
   return (
-    <div className="mt-12 md:mt-16 mb-12 md:mb-16 relative pb-12 md:pb-16 bg-donate-section-pattern bg-no-repeat bg-cover bg-center-top">
+    <div className="max-w-[100vw] mt-12 md:mt-16 mb-12 md:mb-16 relative pb-12 md:pb-16 bg-donate-section-pattern bg-no-repeat bg-cover bg-center-top">
 
-      <div className="max-w-7xl mx-auto px-4 pt-24">
+      <div className="mx-auto px-4 pt-24 lg:px-[7.09vw]">
         <h3 className="text-center font-bold mb-4">{data.title}</h3>
         <ProseInnerHtmlContainer
           className="text-center !max-w-3xl mx-auto min-w-[initial] mb-4"
