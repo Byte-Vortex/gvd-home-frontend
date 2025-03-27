@@ -18,84 +18,15 @@ import { ActiveLink } from "@/components/misc/active-link";
 import clsx from "clsx";
 import { Image } from "@/components/image";
 
-// export default function Navbar() {
-//   return (
-//     <>
-//       <div className="max-w-[100vw] flex sticky top-0 left-0  h-14 text-sm z-50 shadow-md bg-surface text-on-surface px-2 lg:px-[6vw] items-center justify-center">
-//         <div className=" flex w-full items-center justify-between h-full mx-auto font-medium px-4 ">
-//           <Link href="/" className="">
-//             <Image
-//               loadingAnimation={false}
-//               className="block dark:hidden h-auto max-w-[67px] sm:max-w-none w-auto sm:max-h-[40px]"
-//               width={87}
-//               height={52}
-//               src={LogoPurple}
-//               alt="Logo"
-//             />
-//             <Image
-//               loadingAnimation={false}
-//               className="hidden dark:block h-auto max-w-[67px] m:max-w-none w-auto sm:max-h-[40px]"
-//               width={87}
-//               height={52}
-//               src={LogoWhite}
-//               alt="Logo"
-//             />
-//           </Link>
-
-//           <Menubar className="hidden min-[900px]:flex gap-10 whitespace-nowrap py-1 h-full justify-center items-center text-sm flex-grow select-none font-semibold">
-//             {allNavLinks.desktop.map((item, index) => {
-//               if (!item.children)
-//                 return (
-//                   <ActiveLink
-//                     key={index}
-//                     href={item.to}
-//                     className={(isActive) =>
-//                       clsx(
-//                         "hover:text-primary hover:underline",
-//                         isActive && "text-primary"
-//                       )
-//                     }
-//                   >
-//                     {item.title}
-//                   </ActiveLink>
-//                 );
-
-//               return (
-//                 <MenubarMenu key={index}>
-//                   <MenubarTrigger isActive={false}>{item.title}</MenubarTrigger>
-
-//                   <MenubarContent className="grid grid-cols-1 bg-surface text-on-surface font-semibold">
-//                     {item.children.map((child, index) => {
-//                       return (
-//                         <MenubarItem asChild isActive={false} key={index}>
-//                           <ActiveLink href={child.to}>{child.title}</ActiveLink>
-//                         </MenubarItem>
-//                       );
-//                     })}
-//                   </MenubarContent>
-//                 </MenubarMenu>
-//               );
-//             })}
-//           </Menubar>
-
-//           <div className="ml-auto mr-2">
-//             <ThemeButton />
-//           </div>
-//           <Button asChild>
-//             <Link href={"https://donation.guptvrindavandham.org"}>Donate</Link>
-//           </Button>
-//         </div>
-//       </div>
-
 export default function Navbar() {
   return (
     <>
-      <div className="max-w-[100vw] sticky top-0 left-0 h-14 text-sm z-50 shadow-md bg-surface text-on-surface px-4 lg:px-[7vw] flex items-center justify-center">
+      <div className=" max-w-[100vw] sticky top-0 left-0 h-14 text-sm z-50 shadow-md bg-surface text-on-surface px-4 lg:px-[7vw] flex items-center justify-center">
         <div className="flex w-full items-center justify-between h-full mx-auto font-medium">
           <Link href="/">
             <Image
               loadingAnimation={false}
-              className="block dark:hidden h-auto w-auto sm:max-h-[40px]"
+              className="block dark:hidden h-auto w-auto max-w-[67px] sm:max-h-[40px]"
               width={87}
               height={52}
               src={LogoPurple}
@@ -103,7 +34,7 @@ export default function Navbar() {
             />
             <Image
               loadingAnimation={false}
-              className="hidden dark:block h-auto w-auto sm:max-h-[40px]"
+              className="hidden dark:block h-auto w-auto max-w-[67px] sm:max-h-[40px]"
               width={87}
               height={52}
               src={LogoWhite}
@@ -146,7 +77,7 @@ export default function Navbar() {
           </Button>
         </div>
       </div>
-      <div className="fixed z-50 bottom-0 shadow-md min-[900px]:hidden w-full bg-surface text-on-surface h-16 flex items-center justify-around text-xs border-t border-outline">
+      <div className="fixed z-50 bottom-0 shadow-md min-[900px]:hidden w-full bg-surface text-on-surface h-14 flex items-center justify-around text-xs border-t border-outline">
         {allNavLinks.mobile.map((item, index) => {
           if (!item.children)
             return (

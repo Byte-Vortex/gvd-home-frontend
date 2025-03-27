@@ -24,7 +24,7 @@ const Link = ({ to, icon, title }) => {
     return (
         <NextLink href={to} className={clsx("!outline-none focus:outline-none ring-0 border-none group-data-[state=open]:!text-primary/50 flex items-center flex-col font-semibold duration-150 hover:scale-110 hover:text-primary")}>
 
-            <div className="rounded-full p-2 flex items-center justify-center">
+            <div className="rounded-full flex items-center justify-center">
                 {icon}
             </div>
             {title}
@@ -39,7 +39,7 @@ const Trigger = ({ title, icon }) => {
     return (
         <Menubar.Trigger className={clsx("!outline-none focus:outline-none ring-0 border-none group-data-[state=open]:!text-primary/50 flex items-center flex-col font-semibold hover:scale-110 hover:text-primary")}>
 
-            <div className="rounded-full p-2 flex items-center justify-center">
+            <div className="rounded-full flex items-center justify-center">
                 {icon}
             </div>
 

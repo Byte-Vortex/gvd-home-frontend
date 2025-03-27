@@ -11,9 +11,6 @@ import dynamic from "next/dynamic";
 
 const Toaster = dynamic(() => import('sonner').then((_) => _.Toaster), { ssr: false })
 const TopLoader = dynamic(() => import('@/components/misc/top-loader').then((_) => _.TopLoader), { ssr: false })
-const ScriptInjector = dynamic(() => import('@/components/ScriptInjector').then((mod) => mod.default), {
-  ssr: false,
-});
 
 import { PhotoProvider } from "./_providers/photo-provider";
 
@@ -92,14 +89,13 @@ export default function RootLayout({ children }) {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
           <meta name="msapplication-TileColor" content="#da532c" />
           <SeoScripts />
-          <ScriptInjector slug="global" />
         </head>
         <body className="bg-background text-on-background font-Normal selection:text-background selection:bg-on-background/80 text-base">
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+            defaultTheme="light"
+            enableSystem="false"
+            disableTransitionOnChange="false"
           >
             <PhotoProvider>
               {children}

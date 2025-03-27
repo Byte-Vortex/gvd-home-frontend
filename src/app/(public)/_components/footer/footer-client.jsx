@@ -40,8 +40,8 @@ export function FooterClient({ basicDetails }) {
   }
 
   return (
-    <footer className="font-medium gap-5 w-full min-h-72">
-      <div className="flex gap-2 justify-evenly flex-wrap max-w-[100vw] mx-auto px-4 lg:px-24 mt-12">
+    <footer className="font-medium gap-5 max-w-[100vw] w-full min-h-72">
+      <div className="flex gap-2 justify-evenly mx-auto lg:px-[7vw] px-4 flex-wrap mt-12">
         {/* section one */}
 
         <div className="flex flex-col gap-2  my-8 lg:my-0 sm:flex-row lg:flex-col">
@@ -425,9 +425,8 @@ export function FooterClient({ basicDetails }) {
       <div className="relative z-0 mt-12">
         <Image
           loadingAnimation={false}
-          sizes="1280px"
           src={FooterImage}
-          className="w-full h-auto select-none"
+          className="object-cover w-full h-auto select-none"
         />
 
         <div className="h-14 bg-gradient-to-t from-neutral-900 via-neutral-900/80 to-transparent -mt-14 z-10 relative" />
