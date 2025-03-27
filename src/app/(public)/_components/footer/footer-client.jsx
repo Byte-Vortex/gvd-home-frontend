@@ -44,7 +44,7 @@ export function FooterClient({ basicDetails }) {
       <div className="flex gap-2 justify-evenly mx-auto lg:px-[7vw] px-4 flex-wrap mt-12">
         {/* section one */}
 
-        <div className="flex flex-col gap-2  my-8 lg:my-0 sm:flex-row lg:flex-col">
+        <div className="flex flex-col gap-10 my-8 lg:my-0 sm:flex-row lg:flex-col">
           <a
             href="https://guptvrindavandham.org/"
             className="relative hover:brightness-75 flex items-center justify-center"
@@ -67,7 +67,7 @@ export function FooterClient({ basicDetails }) {
             />
           </a>
 
-          <div className="space-y-4 text-center max-w-xs">
+          <div className="space-y-4 text-center max-w-full">
             <p>{basicDetails.address}</p>
 
             <div className="flex items-center gap-3 text-xl max-w-max mx-auto text-foreground">
@@ -120,7 +120,7 @@ export function FooterClient({ basicDetails }) {
         </div>
 
         {/* Main Div */}
-        <div className="flex md:justify-around justify-between w-full lg:w-[initial] flex-grow flex-wrap space-y-2 md:space-y-0">
+        <div className="flex md:justify-around justify-between w-full lg:w-[initial] flex-wrap flex-grow space-y-2 md:space-y-0">
           {/* section two */}
 
           <div className="w-full md:max-w-max border-y-2 border-outline py-2 md:py-0 md:border-y-0 space-y-2">

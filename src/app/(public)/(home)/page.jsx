@@ -34,12 +34,12 @@ export default async function Home() {
     <div>
       {/* <DynamicScripts pathname={"global"} scripts={scripts} /> */}
       <HeroSection data={data.heroSection} />
-      <div className="max-w-[100vw] lg:px-[7.09vw] px-4">
+      <div>
       <BeforeDonateSection data={data} />
       <DonateSection data={data.donateSection} />
       <AfterDonateSection data={data} />
       <InstagramSection />
-      <div className="w-full mx-auto px-4 pb-16">
+      <div className="w-full mx-auto px-4 lg:px-[7.09vw] pb-16">
         <ProseInnerHtmlContainer html={data.footer_body} />
       </div>
       </div>

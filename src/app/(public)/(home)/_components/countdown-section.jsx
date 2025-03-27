@@ -69,7 +69,7 @@ export function CountDownSection({ data }) {
     <div className="space-y-6 text-center">
       <div className="text-4xl md:text-5xl font-semibold">{data.title}</div>
 
-      <ProseInnerHtmlContainer className="font-medium"  html={data.subtitle} />
+      <ProseInnerHtmlContainer className="font-medium text-center"  html={data.subtitle} />
 
       <div className="relative z-0 mx-auto w-64 text-amber-50">
         <Image
@@ -93,7 +93,7 @@ export function CountDownSection({ data }) {
       <Counter date={date} />
 
       <div className="relative">
-        <ProseInnerHtmlContainer className="pt-8" html={data.text} />
+        <ProseInnerHtmlContainer className="pt-8 text-center" html={data.text} />
 
         <Image
           height={56}

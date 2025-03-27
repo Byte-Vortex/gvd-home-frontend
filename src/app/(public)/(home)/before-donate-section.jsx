@@ -8,7 +8,7 @@ import { CampaignSection } from "./_components/campaign-section";
 
 export function BeforeDonateSection({ data }) {
     return (
-        <div className="mx-auto space-y-12 md:space-y-16 pt-12 md:pt-16">
+        <div className="max-w-[100vw] lg:px-[7.09vw] px-4 mx-auto space-y-12 md:space-y-16 pt-12 md:pt-16">
             <CountDownSection data={data.countdownSection} />
             <AboutSection data={data.aboutSection} />
             <ExploreTemple data={data.exploreTempleSection} />

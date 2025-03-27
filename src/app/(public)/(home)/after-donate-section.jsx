@@ -9,7 +9,7 @@ import { WebStoriesSection } from "./_components/web-stories-section";
 
 export function AfterDonateSection({ data }) {
     return (
-        <div className="mx-auto space-y-12 md:space-y-16 pb-12 md:pb-16">
+        <div className=" max-w-[100vw] lg:px-[7.09vw] px-4 mx-auto space-y-12 md:space-y-16 pb-12 md:pb-16">
             <GallerySection data={data.gallerySection} />
             <VideoSection data={data.videoSection} />
             <PrasadamSection data={data.prasadamSection} />
