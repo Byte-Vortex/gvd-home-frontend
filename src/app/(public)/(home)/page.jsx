@@ -32,7 +32,7 @@ export default async function Home() {
   const data = res.data;
   return (
     <div>
-      {/* <DynamicScripts pathname={"global"} scripts={scripts} /> */}
+      <DynamicScripts pathname={"global"} scripts={scripts} />
       <HeroSection data={data.heroSection} />
       <div>
       <BeforeDonateSection data={data} />

@@ -4,7 +4,13 @@ import { useState, useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useRouter, usePathname } from "next/navigation";
-import { CheckCircle, XCircle, ArrowRight, Timer } from "lucide-react";
+import {
+  CheckCircle,
+  XCircle,
+  ArrowRight,
+  Timer,
+  TrophyIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 import * as yup from "yup";
 import { Button } from "@/components/ui/button";
@@ -14,14 +20,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
 import { ControlledInput } from "@/components/controlled/controlled-input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { motion, AnimatePresence } from "framer-motion";
-import { ConfettiSideButton } from "@/components/fancy/confgetti-canons";
+import { ConfettiSideButton } from "@/components/fancy/confetti-canons";
 import { makeRequestClient } from "@/lib/fetch";
+import QuizImage from "@/assets/images/quiz-background.png";
+import PenTool from "@/assets/images/pen-tool.svg";
 
 const schema = yup.object().shape({
   full_name: yup.string().trim().required("Name is required"),
@@ -44,7 +51,6 @@ const schema = yup.object().shape({
     .min(5, "Address must be 5 characters long !"),
 });
 
-// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -67,23 +73,6 @@ const itemVariants = {
     y: 0,
     opacity: 1,
     transition: { type: "spring", stiffness: 300, damping: 24 },
-  },
-};
-
-// Button animation variants
-const buttonVariants = {
-  initial: { scale: 1 },
-  hover: {
-    scale: 1.05,
-    boxShadow:
-      "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-    transition: { type: "spring", stiffness: 400, damping: 10 },
-  },
-  tap: {
-    scale: 0.95,
-    boxShadow:
-      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-    transition: { type: "spring", stiffness: 400, damping: 10 },
   },
 };
 
@@ -145,48 +134,33 @@ function QuizStart({ quizData, onStartQuiz }) {
 
   return (
     <motion.div
-      className="w-full max-w-3xl flex justify-center items-center border-2 border-primary rounded-xl"
+      className="w-full max-w-5xl flex justify-center items-center border-4 border-[#422596] rounded-[18px]"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
     >
-      <Card className="w-full overflow-hidden max-w-full shadow-lg p-5">
+      <Card className="w-full overflow-hidden max-w-full shadow-lg p-5 rounded-[18px]">
         <CardHeader className="text-center">
           <motion.div variants={itemVariants}>
-            <CardTitle className="text-2xl">
-              <h3>
-                {quizData.quizTitle
-                  .split("-")
-                  .map((word) => word[0].toUpperCase() + word.slice(1))
-                  .join(" ")}{" "}
-                Quiz
-              </h3>
-            </CardTitle>
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <CardDescription className="pt-2 text-base">
-              <p>Test your knowledge and challenge yourself!</p>
-            </CardDescription>
-          </motion.div>
-        </CardHeader>
-        <CardContent className="flex gap-2 justify-center items-center text-center px-10 -mt-3">
-          <motion.div variants={itemVariants} className="">
-            <div className="mb-2 font-semibold text-lg">
+            <div className="mb-2 font-semibold text-lg capitalize">
               {quizEnded ? (
-                <p>Quiz is now closed.</p>
+                <h3>Quiz is now closed.</h3>
               ) : quizStarted ? (
-                <div>
-                  <p>Quiz is now available!</p>
-                  <p>Time remaining:</p>
+                <div className="flex flex-col gap-6">
+                  <h3>Quiz is now available !</h3>
+                  <h3>Time remaining</h3>
                 </div>
               ) : !quizStarted ? (
-                <p>Quiz will be Available in :</p>
+                <h3>Quiz will be Available in :</h3>
               ) : (
                 ""
               )}
             </div>
-
+          </motion.div>
+        </CardHeader>
+        <CardContent className="flex gap-2 justify-center items-center text-center px-10 -mt-3">
+          <motion.div variants={itemVariants} className="">
             {timeRemaining && !quizEnded && (
               <motion.div
                 className="flex justify-center gap-3 text-center cursor-default py-2"
@@ -197,7 +171,7 @@ function QuizStart({ quizData, onStartQuiz }) {
                 {Object.entries(timeRemaining).map(([unit, value]) => (
                   <motion.div
                     key={unit}
-                    className="bg-primary/10 rounded-xl p-3 w-20 shadow-sm"
+                    className="bg-[#422596]/10 rounded-xl p-3 w-20 shadow-sm"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{
@@ -210,7 +184,7 @@ function QuizStart({ quizData, onStartQuiz }) {
                       boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
                     }}
                   >
-                    <div className="text-2xl font-bold text-primary">
+                    <div className="text-2xl font-bold text-[#422596]">
                       {value}
                     </div>
                     <div className="text-xs text-muted-foreground">
@@ -245,8 +219,8 @@ function QuizStart({ quizData, onStartQuiz }) {
                 }}
               >
                 <Button
-                  className="group w-48 flex justify-center items-center gap-4 bg-transparent border border-primary text-primary 
-cursor-pointer hover:bg-primary hover:text-white active:scale-95 transition-all text-base"
+                  className="group w-48 flex justify-center items-center gap-2 bg-transparent border-[3px] border-[#422596] text-[#422596] 
+cursor-pointer hover:bg-[#422596] hover:text-white active:scale-95 transition-all text-base"
                   onClick={onStartQuiz}
                 >
                   <span>Start Quiz</span>
@@ -276,10 +250,10 @@ function UserForm({ onSubmit }) {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-5xl rounded-xl border-2 border-purple-700 flex shadow-lg"
+      className="w-full max-w-5xl rounded-[18px] border-4 border-[#422596] flex shadow-lg"
     >
-      <div className="hidden lg:flex w-1/2 bg-primary/60 rounded-l-xl"></div>
-      <div className="lg:w-1/2 w-full p-8 bg-surface rounded-r-xl">
+      <div className="hidden lg:flex w-1/2 bg-primary rounded-l-[14px]"></div>
+      <div className="lg:w-1/2 w-full p-10 bg-surface rounded-r-[18px] lg:rounded-l-none rounded-l-[18px]">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -291,15 +265,16 @@ function UserForm({ onSubmit }) {
           onSubmit={handleSubmit(onSubmit, () =>
             toast.error("Please fix form errors!")
           )}
-          className="space-y-4"
+          className="space-y-4 lg:px-10"
         >
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="space-y-2 w-ful"
+            className="space-y-2"
           >
             <ControlledInput
+              className="ring-2 ring-ring"
               control={control}
               name="full_name"
               label="Full Name"
@@ -313,6 +288,7 @@ function UserForm({ onSubmit }) {
             className="space-y-2"
           >
             <ControlledInput
+              className="ring-2 ring-ring"
               control={control}
               name="father_name"
               label="Father's Name"
@@ -326,6 +302,7 @@ function UserForm({ onSubmit }) {
             className="space-y-2"
           >
             <ControlledInput
+              className="ring-2 ring-ring"
               control={control}
               name="email"
               label="Email"
@@ -339,6 +316,7 @@ function UserForm({ onSubmit }) {
             className="space-y-2"
           >
             <ControlledInput
+              className="ring-2 ring-ring"
               control={control}
               name="whatsapp_number"
               label="Whatsapp Number"
@@ -352,6 +330,7 @@ function UserForm({ onSubmit }) {
             className="space-y-2"
           >
             <ControlledInput
+              className="ring-2 ring-ring"
               control={control}
               name="address"
               label="Residential Address"
@@ -360,14 +339,14 @@ function UserForm({ onSubmit }) {
           </motion.div>
 
           <motion.div
-            className="flex justify-center mt-6"
+            className="flex justify-center pt-5 pb-10"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
             <Button
               type="submit"
-              className="px-6 py-2 rounded-xl bg-transparent hover:bg-primary text-primary hover:text-on-primary font-normal text-lg shadow-md border-2 border-primary transition-transform duration-700"
+              className="px-6 py-2 rounded-xl bg-transparent hover:bg-[#422596] text-[#422596] hover:text-on-primary font-semibold text-lg shadow-md border-[3px] border-[#422596] transition-transform duration-700"
             >
               Start Now
             </Button>
@@ -419,11 +398,11 @@ function QuizQuestion({ question, currentIndex, totalQuestions, onAnswer }) {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.4 }}
-      className="w-full max-w-5xl bg-surface flex justify-center items-center border-2 border-primary rounded-xl"
+      className="w-full max-w-5xl bg-surface flex justify-center items-center border-4 border-[#422596] rounded-[18px]"
     >
       <Card className="w-full max-w-4xl p-10 ">
         <CardHeader className="flex flex-row items-center justify-between">
-          <motion.div className="bg-primary px-3 py-1 rounded-3xl w-16 text-sm font-medium">
+          <motion.div className="bg-[#422596] px-3 py-1 rounded-3xl w-16 text-base font-medium">
             <p className="text-on-primary text-center">
               Q{currentIndex + 1}/{totalQuestions}
             </p>
@@ -432,7 +411,7 @@ function QuizQuestion({ question, currentIndex, totalQuestions, onAnswer }) {
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className=" text-primary bg-primary/10 px-3 flex justify-between items-center py-1 gap-2 rounded-full text-sm font-medium"
+            className=" text-[#422596] bg-[#422596]/10 px-3 flex justify-between items-center py-1 gap-2 rounded-full text-base font-medium"
           >
             <Timer /> {formatTime(elapsedTime)}
           </motion.div>
@@ -444,10 +423,10 @@ function QuizQuestion({ question, currentIndex, totalQuestions, onAnswer }) {
             transition={{ delay: 0.3 }}
           >
             <CardTitle className="flex pl-1 justify-start items-center">
-              <span className="bg-primary rounded-full h-7 w-7 text-center text-on-primary text-xl flex justify-center items-center">
+              <span className="bg-[#422596] rounded-full h-10 w-10 min-w-10 text-center text-on-primary text-sm flex justify-center items-center">
                 {currentIndex + 1}
               </span>
-              <h4 className="ml-2">{question.question}</h4>
+              <h4 className="ml-5">{question.question}</h4>
             </CardTitle>
           </motion.div>
           <RadioGroup
@@ -465,34 +444,43 @@ function QuizQuestion({ question, currentIndex, totalQuestions, onAnswer }) {
                   initial={{ y: 0, opacity: 0, scale: 0.95 }}
                   animate={{ y: 0, opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 + index * 0.1, duration: 0.4 }}
-                  className="flex items-center p-2 transition-all duration-200 w-full 
-          cursor-[url('/pen-tool.svg'), pointer] hover:cursor-[url('/pen-tool.svg'), pointer]"
+                  className="group flex items-center p-2 transition-all duration-200 w-full"
+                  style={{
+                    cursor: `url('${PenTool.src}'), auto`,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.cursor = `url('${PenTool.src}'), auto`;
+                  }}
                   onClick={() => setSelectedAnswer(option)}
                 >
                   {/* Letter Label (A, B, C, D) */}
                   <div
                     className={`flex h-8 w-8 items-center justify-center rounded-[7px] font-semibold text-sm mr-3 
-            ${
-              isSelected
-                ? "bg-primary text-white"
-                : "border-2 border-primary bg-primary/20 text-primary"
-            }
-          `}
+      ${
+        isSelected
+          ? "bg-[#422596] text-white"
+          : "border-2 border-[#422596] bg-[#422596]/20 text-[#422596] group-hover:bg-[#422596] group-hover:text-white"
+      }
+      transition-colors duration-200`}
                   >
                     {optionLetter}
                   </div>
-                  {/* Radio Button (Hidden Default) */}
+
                   <RadioGroupItem
                     value={option}
                     id={`option-${index}`}
                     className="hidden border-none"
                   />
-                  {/* Answer Container */}
+
                   <Label
                     htmlFor={`option-${index}`}
-                    className={`flex-grow p-3 rounded-xl border-2 border-primary transition-all duration-300 ease-in-out hover:shadow-[0.5px_4px_0px_0px_rgba(88,28,135,0.6)]
-            ${isSelected ? "shadow-[0.5px_4px_0px_0px_rgba(88,28,135,1)]" : ""} 
-          `}
+                    style={{ cursor: `url('${PenTool.src}'), auto` }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.cursor = `url('${PenTool.src}'), auto`;
+                    }}
+                    className={`flex-grow p-3 rounded-xl border-2 border-[#422596] transition-all duration-300 ease-in-out
+      group-hover:shadow-[0.5px_4px_0px_0px_rgb(66, 37, 150)]
+      ${isSelected ? "shadow-[0.5px_4px_0px_0px_rgb(66, 37, 150)]" : ""}`}
                   >
                     {option}
                   </Label>
@@ -509,8 +497,13 @@ function QuizQuestion({ question, currentIndex, totalQuestions, onAnswer }) {
           >
             {currentIndex === totalQuestions - 1 ? (
               <ConfettiSideButton
-                className="w-40 bg-green-800"
+                className={`font-bold border-2 ${
+                  !selectedAnswer
+                    ? "bg-transparent border-green-800 text-green-800 cursor-not-allowed"
+                    : "bg-green-800 border-green-800 text-on-primary"
+                }`}
                 onClick={handleNext}
+                disabled={!selectedAnswer}
               >
                 Finish
               </ConfettiSideButton>
@@ -520,8 +513,8 @@ function QuizQuestion({ question, currentIndex, totalQuestions, onAnswer }) {
                 disabled={!selectedAnswer}
                 className={`w-40 font-bold border-2 ${
                   !selectedAnswer
-                    ? "bg-transparent border-primary text-primary cursor-not-allowed"
-                    : "bg-primary border-primary text-on-primary"
+                    ? "bg-transparent border-[#422596] text-[#422596] cursor-not-allowed"
+                    : "bg-[#422596] border-[#422596] text-on-primary"
                 }`}
               >
                 Next
@@ -540,6 +533,7 @@ function QuizResults({
   totalTime,
   userInfo,
   quizData,
+  onGoBack,
 }) {
   const incorrectAnswers = totalQuestions - correctAnswers;
   const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
@@ -562,9 +556,18 @@ function QuizResults({
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-5xl border-2 border-primary rounded-xl bg-surface flex justify-center items-center"
+      className="w-full max-w-5xl border-[2px] border-[#422596] rounded-[18px] bg-surface flex justify-center items-center relative overflow-hidden"
     >
-      <Card className="w-full max-w-3xl lg:px-10 py-5">
+      {/* Trophy Background Icon */}
+      <motion.div
+        initial={{ opacity: 0, y: 20, rotate: 20 }}
+        animate={{ opacity: 0.2, y: 0, rotate: 20 }}
+        transition={{ delay: 0.8, duration: 1 }}
+        className="absolute bottom-5 left-3 -mb-4 -ml-5 z-0"
+      >
+        <TrophyIcon className="w-[30vw] h-[30vw] text-[#422596]/30"></TrophyIcon>
+      </motion.div>
+      <Card className="w-full max-w-3xl lg:px-10 py-5 z-10 bg-transparent shadow-none">
         <CardHeader>
           <motion.div
             initial={{ y: -20, opacity: 0 }}
@@ -572,7 +575,7 @@ function QuizResults({
             transition={{ delay: 0.2 }}
           >
             <CardTitle className="text-center">
-              <h2>{quizData.quizSlug} Quiz Score</h2>
+              <h2>{quizData.quizTitle} Score</h2>
             </CardTitle>
           </motion.div>
         </CardHeader>
@@ -600,7 +603,7 @@ function QuizResults({
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.6 }}
-                className="bg-purple-800 text-white p-6 rounded-2xl flex flex-col items-center max-w-xs flex-1"
+                className="bg-[#422596] text-white p-6 rounded-2xl flex flex-col items-center max-w-xs flex-1"
               >
                 <p className="text-lg font-semibold">Correct</p>
                 <div className="flex justify-between items-center gap-7 mt-4">
@@ -615,7 +618,7 @@ function QuizResults({
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.6 }}
-                className="bg-purple-300 text-purple-900 p-6 rounded-2xl flex flex-col items-center max-w-xs flex-1"
+                className="bg-[#cebcff] text-[#422596] p-6 rounded-2xl flex flex-col items-center max-w-xs flex-1"
               >
                 <p className="text-lg font-semibold">Incorrect</p>
                 <div className="flex justify-between items-center gap-7 mt-4">
@@ -633,7 +636,7 @@ function QuizResults({
                 transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
                 className="relative"
               >
-                <div className="relative w-40 h-40 bg-on-primary rounded-full lg:ml-10 lg:mt-10">
+                <div className="relative w-48 h-48 bg-[#f0d5ca] rounded-full lg:ml-10 lg:mt-10 p-2">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
                       <motion.div
@@ -644,7 +647,7 @@ function QuizResults({
                           type: "spring",
                           stiffness: 120,
                         }}
-                        className="text-4xl font-bold text-primary"
+                        className="text-4xl font-bold text-[#d2673c]"
                       >
                         {scorePercentage}%
                       </motion.div>
@@ -665,7 +668,7 @@ function QuizResults({
                       cy="50"
                     />
                     <motion.circle
-                      className="text-primary"
+                      className="text-[#d2673c]"
                       strokeWidth="8"
                       strokeDasharray={strokeDasharray}
                       strokeLinecap="round"
@@ -688,41 +691,42 @@ function QuizResults({
             </div>
           </div>
 
-          <h4 className="">Time Taken</h4>
+          <div className="flex flex-row justify-between items-center w-full">
+            <div className="flex flex-col justify-start items-start w-[80%]">
+              <h4 className="">Time Taken</h4>
 
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            whileHover={{
-              y: -5,
-              boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-            }}
-            className="bg-on-primary py-4 rounded-xl text-center border border-primary/20 w-[40%] text-primary"
-          >
-            <div className="flex justify-center items-center px-5 text-xl font-bold">
-              <Timer className="w-14 h-14 "></Timer>
-              <p className="text-2xl pl-14 tracking-widest">
-                {formatTime(totalTime)}
-              </p>
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                whileHover={{
+                  y: -5,
+                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+                }}
+                className="bg-[#f0d5ca] py-4 rounded-[18px] w-full text-[#d2673c]"
+              >
+                <div className="flex justify-center items-center px-5 text-xl font-bold">
+                  <Timer className="w-14 h-14 "></Timer>
+                  <p className="text-2xl pl-14 tracking-widest">
+                    {formatTime(totalTime)}
+                  </p>
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
-
-          <Button></Button>
+            <Button onClick={onGoBack}>Back</Button>
+          </div>
         </CardContent>
       </Card>
     </motion.div>
   );
 }
 
-export default function QuizForm({quizData}) {
+export default function QuizForm({ quizData }) {
   const [quizState, setQuizState] = useState("not-started");
   const [userInfo, setUserInfo] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState([]);
   const [totalTime, setTotalTime] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const isFullScreen = quizState !== "not-started";
   const router = useRouter();
   const pathname = usePathname();
@@ -731,36 +735,31 @@ export default function QuizForm({quizData}) {
   const enableFullScreen = () => {
     const elem = document.documentElement;
     if (elem.requestFullscreen) {
-      elem
-        .requestFullscreen()
-        .catch((err) => console.error("Fullscreen error:", err));
+      elem.requestFullscreen();
     } else if (elem.mozRequestFullScreen) {
       elem.mozRequestFullScreen();
     } else if (elem.webkitRequestFullscreen) {
       elem.webkitRequestFullscreen();
     } else if (elem.msRequestFullscreen) {
       elem.msRequestFullscreen();
+    } else {
+      return;
     }
   };
-
-  // Prevent exiting fullscreen with Escape key
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        event.preventDefault(); // Block escape key
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
 
   const handleStartQuiz = () => {
     router.replace(`${pathname}?start`, { scroll: false });
     enableFullScreen(); // Only trigger fullscreen on this user action
     setQuizState("user-form");
+  };
+
+  const handleGoBack = () => {
+    router.replace(pathname, { scroll: false });
+    setQuizState("not-started");
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
   };
 
   const handleUserFormSubmit = (user) => {
@@ -774,23 +773,23 @@ export default function QuizForm({quizData}) {
       answer,
       timeTaken,
     };
-    setResponses([...responses, newResponse]);
+    const updatedResponses = [...responses, newResponse];
+    setResponses(updatedResponses);
 
     if (currentQuestionIndex < quizData.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
+      const calculatedTotalTime = updatedResponses.reduce(
+        (sum, r) => sum + r.timeTaken,
+        0
+      );
+      setTotalTime(calculatedTotalTime);
       setQuizState("completed");
-      submitQuizResults();
+      submitQuizResults(updatedResponses, calculatedTotalTime);
     }
   };
 
-  const submitQuizResults = async () => {
-    const calculatedTotalTime = responses.reduce(
-      (sum, r) => sum + r.timeTaken,
-      0
-    );
-    setTotalTime(calculatedTotalTime);
-
+  const submitQuizResults = async (responses, totalTime) => {
     const score = responses.filter(
       (r, i) => r.answer === quizData.questions[i].correctAnswer
     ).length;
@@ -799,9 +798,11 @@ export default function QuizForm({quizData}) {
       user: userInfo,
       quizTitle: quizData.quizTitle,
       responses,
-      totalTime: calculatedTotalTime,
+      totalTime,
       score,
     };
+
+    console.log("Quiz Submission Data:", submissionData);
 
     try {
       const response = await fetch("/api/submit-quiz", {
@@ -818,41 +819,52 @@ export default function QuizForm({quizData}) {
   return (
     <div
       onContextMenu={(e) => e.preventDefault()} // Disable right-click
-      className={`${
+      className={`
+        ${
+          isFullScreen
+            ? "fixed inset-0 z-50 bg-background/80 bg-cover bg-center bg-no-repeat lg:px-10 px-4 select-none flex justify-center items-center"
+            : ""
+        }
+      `}
+      style={
         isFullScreen
-          ? "fixed inset-0 z-50 bg-background lg:px-10 px-4 select-none"
-          : "w-full max-w-[100vw] flex flex-col justify-center items-center"
-      } flex flex-col justify-center items-center text-left`}
+          ? {
+              backgroundImage: `url(${QuizImage.src})`,
+              backgroundBlendMode: "multiply", // Adds overlay effect with bg-background/80
+            }
+          : {}
+      }
     >
       <AnimatePresence mode="wait">
-      {quizState === "not-started" && (
-        <QuizStart quizData={quizData} onStartQuiz={handleStartQuiz} />
-      )}
-      {quizState === "user-form" && (
-        <UserForm onSubmit={handleUserFormSubmit} />
-      )}
-      {quizState === "in-progress" && (
-        <QuizQuestion
-          key={`question-${currentQuestionIndex}`}
-          question={quizData.questions[currentQuestionIndex]}
-          currentIndex={currentQuestionIndex}
-          totalQuestions={quizData.questions.length}
-          onAnswer={handleAnswerQuestion}
-        />
-      )}
-      {quizState === "completed" && (
-        <QuizResults
-          totalQuestions={quizData.questions.length}
-          correctAnswers={
-            responses.filter(
-              (r, i) => r.answer === quizData.questions[i].correctAnswer
-            ).length
-          }
-          totalTime={totalTime}
-          quizData={quizData}
-          userInfo={userInfo}
-        />
-      )}
+        {quizState === "not-started" && (
+          <QuizStart quizData={quizData} onStartQuiz={handleStartQuiz} />
+        )}
+        {quizState === "user-form" && (
+          <UserForm onSubmit={handleUserFormSubmit} />
+        )}
+        {quizState === "in-progress" && (
+          <QuizQuestion
+            key={`question-${currentQuestionIndex}`}
+            question={quizData.questions[currentQuestionIndex]}
+            currentIndex={currentQuestionIndex}
+            totalQuestions={quizData.questions.length}
+            onAnswer={handleAnswerQuestion}
+          />
+        )}
+        {quizState === "completed" && (
+          <QuizResults
+            totalQuestions={quizData.questions.length}
+            correctAnswers={
+              responses.filter(
+                (r, i) => r.answer === quizData.questions[i].correctAnswer
+              ).length
+            }
+            totalTime={totalTime}
+            quizData={quizData}
+            userInfo={userInfo}
+            onGoBack={handleGoBack}
+          />
+        )}
       </AnimatePresence>
     </div>
   );

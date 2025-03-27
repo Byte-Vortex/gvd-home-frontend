@@ -1,11 +1,20 @@
 import NextBundleAnalyzer from '@next/bundle-analyzer';
-const withBundleAnalyzer = NextBundleAnalyzer({ enabled: process.env.ANALYZE === 'true', })
+const withBundleAnalyzer = NextBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' });
 
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
     images: {
-        domains: ["guptvrindavandham.org", "scontent.cdninstagram.com"],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'guptvrindavandham.org',
+            },
+            {
+                protocol: 'https',
+                hostname: 'scontent.cdninstagram.com',
+            }
+        ],
         minimumCacheTTL: 120
     },
     experimental: {

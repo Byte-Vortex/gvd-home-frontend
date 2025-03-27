@@ -3,11 +3,15 @@ import { Header } from "./(public)/_components/header/header";
 import Navbar from "./(public)/_components/navbar/navbar";
 import { DiscoverSection } from "./(public)/_components/discover-section/discover-section";
 import { Footer } from "./(public)/_components/footer/footer";
+import { getBasicDetails } from "@/server/get-basic-details";
 
-export default function NotFoundPage() {
+export default async function NotFoundPage() {
+
+  const basicDetails = await getBasicDetails();
+
   return (
     <>
-      <Header />
+      <Header getBasicDetails={basicDetails} />
       <Navbar />
       <div className="min-h-screen flex flex-col gap-24 pb-12 pt-20">
         <div className="text-center flex items-center justify-center flex-col my-auto">
@@ -40,7 +44,7 @@ export default function NotFoundPage() {
           <DiscoverSection />
         </div>
       </div>
-      <Footer />
+      <Footer getBasicDetails={basicDetails} />
     </>
   );
 }

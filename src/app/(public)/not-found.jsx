@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { DiscoverSection } from "./_components/discover-section/discover-section";
-import { Footer } from "./_components/footer/footer";
 import { Header } from "./_components/header/header";
+import { Footer } from "./_components/footer/footer";
 import Navbar from "./_components/navbar/navbar";
+import { getBasicDetails } from "@/server/get-basic-details";
 
-export default function NotFoundPage() {
+export default async function NotFoundPage() {
+  const basicDetails = await getBasicDetails();
   return (
     <>
       <div className="min-h-screen flex flex-col gap-24 pb-12 pt-20">
@@ -38,7 +40,7 @@ export default function NotFoundPage() {
           <DiscoverSection />
         </div>
       </div>
-      <Footer />
+      <Footer basicDetails={basicDetails} />
     </>
   );
 }

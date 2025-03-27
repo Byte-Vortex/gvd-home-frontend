@@ -1,11 +1,11 @@
-import { getBasicDetails } from "@/server/get-basic-details";
+
 import { FooterClient } from "./footer-client";
 
-export async function Footer() {
-
-  const basicDetails = await getBasicDetails();
+export function Footer({ basicDetails }) {
 
   return (
     <FooterClient basicDetails={basicDetails} />
   )
 }
+
+export default Footer;
